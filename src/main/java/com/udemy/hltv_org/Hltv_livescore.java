@@ -34,13 +34,10 @@ public class Hltv_livescore {
         file.close();
     }
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, InterruptedException {
 		Document doc = getHtml("https://www.hltv.org/matches");
 		int a = 1;
-		Object OBJECT_HLTV = new Object();
-		 try {
-		  synchronized (OBJECT_HLTV) {
-		   while (a>0) {for (Element result : doc.select("body > div.bgPadding > div > div.colCon > div.contentCol > div > div.live-matches")) {
+		 while (a>0) {for (Element result : doc.select("body > div.bgPadding > div > div.colCon > div.contentCol > div > div.live-matches")) {
 	            String teamOne = result.text();
 	            String header = result.text();
 	            String teamTwo = result.text();
@@ -50,12 +47,9 @@ public class Hltv_livescore {
 			System.out.println(scoresArray);
 	        jsonToFile();
 		
-			   OBJECT_HLTV.wait(10000);
+			   Thread.sleep(10000);
 		   }
-		  }
-		 } catch (InterruptedException ex) {
-		   
-		 }
+		  
+		 } 
 		
-}
 }
