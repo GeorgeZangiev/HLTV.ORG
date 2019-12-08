@@ -15,7 +15,8 @@ public class Hltv_livescore {
     private static JSONArray scoresArray = new JSONArray();
 
     static Document getHtml(String url) throws IOException {
-        Document doc = Jsoup.connect(url).get();
+    	String USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.97 Safari/537.36";
+    	Document doc = Jsoup.connect("https://www.hltv.org/matches").userAgent(USER_AGENT).get();
         return doc;
     }
     
@@ -28,16 +29,13 @@ public class Hltv_livescore {
     }
 
     static void jsonToFile() throws IOException {
-        FileWriter file = new FileWriter("output.json");
+        FileWriter file = new FileWriter("hltv_livescore.json");
         file.write(scoresArray.toJSONString());
         file.close();
     }
 
     public static void main(String[] args) throws IOException {
-        
-    	String USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.97 Safari/537.36";
-		Document doc = Jsoup.connect("https://www.hltv.org/matches").userAgent(USER_AGENT).get();
-		
+		Document doc = getHtml("https://www.hltv.org/matches");
 		int a = 1;
 		Object OBJECT_HLTV = new Object();
 		 try {
