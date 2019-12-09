@@ -30,7 +30,6 @@ public class Hltv_livescore {
 
     static void jsonToFile() throws IOException {
         FileWriter file = new FileWriter("hltv_livescore.json");
-        file.write(scoresArray.toJSONString());
         file.close();
     }
 
@@ -38,9 +37,9 @@ public class Hltv_livescore {
 		Document doc = getHtml("https://www.hltv.org/matches");
 		int a = 1;
 		 while (a>0) {for (Element result : doc.select("body > div.bgPadding > div > div.colCon > div.contentCol > div > div.live-matches")) {
-	            String teamOne = result.text();
+	            String teamOne = null;
 	            String header = result.text();
-	            String teamTwo = result.text();
+	            String teamTwo = null;
 	            JSONObject scoreObject = createJsonObject(teamOne, teamTwo, header);
 	            scoresArray.add(scoreObject);
 	        }
